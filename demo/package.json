@@ -71,10 +71,14 @@
     "workbox-webpack-plugin": "5.1.4"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
-  },
+        "build-css": "node-sass-chokidar src/ -o src/",
+        "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive  --use-polling --polling-interval 1000",
+        "start-js": "node scripts/start.js",
+        "start": "npm-run-all -p watch-css start-js",
+        "build-js": "node scripts/build.js",
+        "build": "npm-run-all build-css build-js",
+        "test": "node scripts/test.js --env=jsdom"
+},
   "eslintConfig": {
     "extends": [
       "react-app",
